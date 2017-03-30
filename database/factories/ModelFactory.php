@@ -28,6 +28,6 @@ $factory->define(App\Tweet::class, function (Faker\Generator $faker) {
         'user_id' => function () {
             return factory(App\User::class)->create()->id;
         },
-        'tweet' => $faker->sentence
+        'body' => $faker->sentence
     ];
 });
