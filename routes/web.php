@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
+
+Route::group(['prefix' => '{username}', 'namespace' => 'User'], function () {
+    Route::resource('tweet', 'TweetController');
+});
