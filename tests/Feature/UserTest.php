@@ -18,4 +18,24 @@ class UserTest extends TestCase
 
         $response->assertSee($tweet->body);
     }
+
+    /** @test */
+    public function a_user_can_register()
+    {
+        $email = 'johndoe@gmail.com';
+
+        $response = $this->post('/register', [
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'email' => $email,
+            'password' => 'secret',
+            'password_confirmation' => 'secret'
+        ]);
+
+        $this->assertDatabaseHas('users', [
+            'email' => $email
+        ]);
+
+        $response->assertRedirect('/home');
+    }
 }
