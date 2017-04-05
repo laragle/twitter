@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\UserHasRegistered;
 use Illuminate\Notifications\Notifiable;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -16,7 +17,16 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password',
+        'first_name', 'last_name', 'email', 'password', 'email_verification_token',
+    ];
+
+    /**
+     *  The event map for the model.
+     * 
+     *  @var array
+     */
+    protected $events = [
+        'created' => UserHasRegistered::class,
     ];
 
     /**
@@ -50,5 +60,28 @@ class User extends Authenticatable
                 'source' => ['first_name', 'last_name']
             ]
         ];
+    }
+
+    /**
+     *  Verify user's email
+     * 
+     *  @return \App\User
+     */
+    public function verifyEmail()
+    {
+        $this->email_verification_token = null;
+        $this->save();
+
+        return $this;
+    }
+
+    /**
+     *  Get the email verification url.
+     * 
+     *  @return string
+     */
+    public function getEmailVerificationUrlAttribute()
+    {
+        return route('account.verify.email', ['token' => $this->email_verification_token]);
     }
 }

@@ -19,6 +19,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+Route::group(['prefix' => 'account', 'namespace' => 'Account', 'as' => 'account.'], function () {
+    Route::group(['prefix' => 'verify', 'namespace' => 'Verification', 'as' => 'verify.'], function () {
+        Route::get('email/{token}', 'EmailController@verify')->name('email');
+    });
+});
+
 Route::group(['prefix' => '{username}', 'namespace' => 'User'], function () {
     Route::resource('tweet', 'TweetController');
 });

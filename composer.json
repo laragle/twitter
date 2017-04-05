@@ -26,7 +26,10 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "tests/MailTracking.php"
+        ]
     },
     "scripts": {
         "post-root-package-install": [
