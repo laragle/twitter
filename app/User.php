@@ -39,6 +39,16 @@ class User extends Authenticatable
     ];
 
     /**
+     *  Get all the user tweets
+     * 
+     *  @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tweets()
+    {
+        return $this->hasMany(Tweet::class);
+    }
+
+    /**
      *  Get the route key for the model.
      * 
      *  @return string

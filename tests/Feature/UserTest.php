@@ -69,4 +69,18 @@ class UserTest extends TestCase
         
         $this->assertNull($user->fresh()->email_verification_token);        
     }
+
+    /** @test */
+    public function a_user_can_create_a_tweet()
+    {
+        $user = factory('App\User')->create();
+        $tweet = 'My first tweet';
+
+        $this->actingAs($user)
+             ->post(route('tweet.store', ['username' => $user->username]), [
+            'body' => $tweet
+        ]);
+
+        $this->assertDatabaseHas('tweets', ['body' => $tweet]);
+    }
 }

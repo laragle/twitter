@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Tweet extends Model
 {
     /**
+     *  The attributes that are mass assignable.
+     * 
+     *  @var array
+     */
+    protected $fillable = ['body'];
+
+    /**
      *  Get the owner of the tweet.
      * 
      *  @return Illuminate\Database\Eloquent\Relations\BelongsTo

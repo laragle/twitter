@@ -10,6 +10,16 @@ use App\Http\Controllers\Controller;
 class TweetController extends Controller
 {
     /**
+     *  Create a new controller instance
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', [
+                'only' => ['create', 'store', 'edit', 'update', 'destroy']
+            ]);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -37,7 +47,11 @@ class TweetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'body' => 'required'
+        ]);
+
+        return $request->user()->tweets()->create($request->only(['body']));
     }
 
     /**
