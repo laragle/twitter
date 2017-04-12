@@ -11,13 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index');
 
 Route::group(['prefix' => 'account', 'namespace' => 'Account', 'as' => 'account.'], function () {
     Route::group(['prefix' => 'verify', 'namespace' => 'Verification', 'as' => 'verify.'], function () {
