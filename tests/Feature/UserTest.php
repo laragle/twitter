@@ -36,7 +36,7 @@ class UserTest extends TestCase
             'email' => $email
         ]);
 
-        $response->assertRedirect('/home');
+        $response->assertRedirect('/');
     }
 
     /** @test */

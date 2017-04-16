@@ -3,13 +3,14 @@
 namespace App;
 
 use App\Events\UserHasRegistered;
+use App\Traits\MySQLJSONColumnManager;
 use Illuminate\Notifications\Notifiable;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable, Sluggable;
+    use Notifiable, Sluggable, MySQLJSONColumnManager;
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'email_verification_token',
+        'first_name', 'last_name', 'email', 'password', 'email_verification_token', 'options',
     ];
 
     /**
@@ -36,6 +37,15 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password', 'remember_token',
+    ];
+
+    /**
+     *  The attributes that should be casted to native types.
+     * 
+     *  @var array
+     */
+    protected $casts = [
+        'options' => 'array'
     ];
 
     /**
