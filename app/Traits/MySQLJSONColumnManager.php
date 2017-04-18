@@ -8,12 +8,12 @@ trait MySQLJSONColumnManager
 {
     public function __call($method, $arguments)
     {
-        if (property_exists($this, 'casts')) {
-            $dataTypes = ['array', 'json'];
-
-            if (array_key_exists($method, $this->casts) && in_array($this->casts[$method], ['array', 'json'])) {
-                return new BaseManager($this, $method);
-            }
+        if (
+            property_exists($this, 'casts') &&
+            array_key_exists($method, $this->casts) &&
+            in_array($this->casts[$method], ['array', 'json'])
+        ) {
+            return new BaseManager($this, $method);            
         }
 
         return parent::__call($method, $arguments);
