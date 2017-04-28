@@ -6,7 +6,7 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <form action="{{ route('tweet.store', ['username' => $loggedUser->username]) }}" method="POST">
+                    <form action="{{ route('tweet.store', ['username' => Auth::user()->username]) }}" method="POST">
                         {{ csrf_field() }}
 
                         <div class="form-group">
